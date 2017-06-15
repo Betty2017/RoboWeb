@@ -1,102 +1,151 @@
 package Resume;
 
+import java.beans.Statement;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.sun.corba.se.pept.transport.Connection;
+
+/**
+ * Servlet implementation class Submit
+ */
 @WebServlet("/Submit")
 public class Submit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    
     public Submit() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String firstname= request.getParameter("firstName");
-		System.out.print("The  name is " );
-		System.out.println(firstname);
-		request.setAttribute("firstName", firstname);
-		
-		Connection con = null;
-		Statement stmt = null;
-		ResultSet rs = null;
-		String sql = "select * from PERSON,EDU,JOB,SKILL where FNAME='"+firstName+"'";
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/Customers?"
-					+ "user=root&password=password");
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-			while(rs.next()){
-				String[] vals=new String[12];
-
-				for(int i=0;i<vals.length;i++)
-				{
-					vals[i]=rs.getString(i+1);
-					System.out.print(vals[i] + "\t");
-
+				String pi=request.getParameter("personId");
+				String fn=request.getParameter("firstName");
+				String ln=request.getParameter("lastName");
+				String email=request.getParameter("email");
+				String de=request.getParameter("degree");
+				String sc=request.getParameter("school");
+				String gy=request.getParameter("year");
+				
+				 HttpSession session=request.getSession();  
+			        session.setAttribute("perId",pi); 
+			        
+		if (request.getParameter("first") != null) {
+		  			      	        
+	        java.sql.Connection con=null;
+			java.sql.Statement stmt=null;
+			ResultSet rs=null;
+			String sql = "Insert into PERSON(PID,FNAME, LNAME,EMAIL) values('"+pi+"','"+fn+"','"+ln+"','"+email+"')";
+			
+			
+			System.out.println(sql);
+			
+			
+			try{
+				Class.forName("com.mysql.jdbc.Driver");
+	            con = DriverManager.getConnection("jdbc:mysql://localhost/RESUME?"
+	                                + "user=root&password=password");
+				stmt = con.createStatement();
+				 if(!stmt.execute(sql))
+				 {
+										
+					sql= "Select * from PERSON where FNAME='"+fn+"' and LNAME='"+ln+"'";
+					stmt=con.createStatement();
+					rs=(ResultSet) stmt.executeQuery(sql);
+					
+				
+					
+					while(rs.next()){
+						System.out.print(rs.getString(1) + "\t");
+						System.out.print(rs.getString(2));
+						System.out.println();
+					}
+										
 				}
-
-
-				System.out.println(vals.length);
-
-				String nextURL ="/output.jsp";
-				String message ="<h1>Customer ID is "+ vals[11]+"</h1>";
-				String message1 =vals[1] +" "+ vals[0]+"\n";
-				String message2 =vals[4];
-				String message3= vals[5]+vals[6]+vals[7];
-				String message4 = vals[8];
-				String message5= vals[9]+ vals[10];
-				String message6= "Press (1) to search for another customer or press (2) to Edit the customer's address.";
-
-
-				request.setAttribute("message", message);
-				request.setAttribute("message1", message1);
-				request.setAttribute("message2", message2);
-				request.setAttribute("message3", message3);
-				request.setAttribute("message4", message4);
-				request.setAttribute("message5", message5);
-
-				request.setAttribute("message6", message6);
-
-				getServletContext().getRequestDispatcher(nextURL).forward(request,response);
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}catch (ClassNotFoundException e) {
+					e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					stmt.close();
+					con.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
 			}
-		}
-		catch(Exception e){System.out.println(e);
-
-		}
-
-
+			
+			
+			
+			
+			String sql2 = "Insert into EDU(DEGREE,SCHOOL,GYEAR,PID) values('"+de+"','"+sc+"','"+gy+"','"+pi+"')";
+			try{
+				Class.forName("com.mysql.jdbc.Driver");
+	            con = DriverManager.getConnection("jdbc:mysql://localhost/RESUME?"
+	                                + "user=root&password=password");
+				stmt = con.createStatement();
+				 if(!stmt.execute(sql2))
+				 {
+										
+					sql2= "Select * from EDU ";
+					stmt=con.createStatement();
+					rs=(ResultSet) stmt.executeQuery(sql2);
+					
+				
+					
+					while(rs.next()){
+						System.out.print(rs.getString(1) + "\t");
+						System.out.print(rs.getString(2));
+						System.out.println();
+					}
+										
+				}
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}catch (ClassNotFoundException e) {
+					e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+					stmt.close();
+					con.close();
+				}catch(SQLException e){
+					e.printStackTrace();
+				}
+			}
+			String nextURL ="/Experiance.jsp";
+			    	    
+		    getServletContext().getRequestDispatcher(nextURL).forward(request,response);
+	        
+	}
+		else if (request.getParameter("second") != null) {
+			String nextURL ="/Education.jsp";
+			    	    
+		    getServletContext().getRequestDispatcher(nextURL).forward(request,response);
+		}	
 		
+	}
+	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		getServletContext().getRequestDispatcher("/output.jsp").forward(request,response);
+	
 		
 	}
 
-}
+

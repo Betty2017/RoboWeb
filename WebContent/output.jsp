@@ -4,9 +4,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Robo Resume</title>
 </head>
 <body>
-<h1>${firstName}</h1>
+<h3>${personFN_session} ${personLN_session}</h3>
+<p>${personEM_session}</p>
+<br>
+<h4>Education</h4>
+<p>${eduDE_session}</p>
+<p>${eduSC_session},${eduGY_session}</p>
+<br>
+<h4>Experience</h4>
+<p>${jobTI_session}</p>
+<p>${jobCO_session},${jobDA_session}</p>
+<p>Duty1${jobD1_session}</p>
+<p>Duty2${jobD2_session}</p>
+<br>
+<h4>Skills</h4>
+<p>${skillNA_session},${skillPR_session}</p>
+
 </body>
 </html>
