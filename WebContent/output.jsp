@@ -13,18 +13,16 @@
 	<p>${personEM_session}</p>
 	<br>
 	<h4>Education</h4>
+	<p>${eduCO_session}</p>
 	
-	<p>${eduDE_session}</p>
-	<p>${eduSC_session},${eduGY_session}</p>
+		
 	<br>
 	<h4>Experience</h4>
-	<p>${jobTI_session}</p>
-	<p>${jobCO_session},${jobDA_session}</p>
-	<p>Duty1${jobD1_session}</p>
-	<p>Duty2${jobD2_session}</p>
+	<p>${jobCO_session}</p>
+	
 	<br>
 	<h4>Skills</h4>
-	<p>${skillNA_session},${skillPR_session}</p>
+	<p>${skillCO_session}</p>
 
 </table>
 </body>

@@ -85,6 +85,7 @@ public class Display extends HttpServlet {
 	    
 	    
 	    String sql1 = "select * from EDU where PID='"+personId+"'";
+	   
 	    
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");
@@ -93,7 +94,7 @@ public class Display extends HttpServlet {
 	        stmt = con.createStatement();
 	        rs = stmt.executeQuery(sql1);
 	        
-	        
+	        String degreeText = " " ;
 	        while (rs.next()) {
 	        	
 	            String degree = rs.getString("DEGREE");
@@ -103,13 +104,11 @@ public class Display extends HttpServlet {
 	            
 	            System.out.println(degree + "\t" + school + "\t" + gYear);
 	            
+	          degreeText = degreeText + degree+" <br/> "+school+" "+gYear+"<br/><br/>";
 	                    
-	            session.setAttribute("eduDE_session", degree);
-	            session.setAttribute("eduSC_session", school);
-	            session.setAttribute("eduGY_session", gYear);
-	            
+	            session.setAttribute("eduCO_session", degreeText);
 	           
-
+	        
 		 		   
 	            
 
@@ -137,6 +136,9 @@ public class Display extends HttpServlet {
                                 + "user=root&password=password");
 	        stmt = con.createStatement();
 	        rs = stmt.executeQuery(sql3);
+	        
+	        String jobText ="";
+	        
 	        while (rs.next()) {
 	            String title = rs.getString("TITLE");
 	            String company = rs.getString("COMPANY");
@@ -148,12 +150,9 @@ public class Display extends HttpServlet {
 	            
 	            System.out.println(title + "\t" + company + "\t" + dates+ "\t" + duty1+ "\t" + duty2);
 	           
-	           	            
-	            session.setAttribute("jobTI_session", title);
-	            session.setAttribute("jobCO_session", company);
-	            session.setAttribute("jobDA_session", dates);
-	            session.setAttribute("jobD1_session", duty1);
-	            session.setAttribute("jobD2_session", duty2);
+	            jobText = jobText + title+" <br/> "+company+" "+dates+"<br/>"+" Duty1" +duty1+" <br/>"+"Duty2"+duty2+" <br/><br/>";            
+	           
+	            session.setAttribute("jobCO_session", jobText);
 
 	            
 	        }
@@ -179,6 +178,9 @@ public class Display extends HttpServlet {
                                 + "user=root&password=password");
 	        stmt = con.createStatement();
 	        rs = stmt.executeQuery(sql4);
+	        
+	        String skillText="";
+	        
 	        while (rs.next()) {
 	            String name = rs.getString("NAME");
 	            String proficency = rs.getString("PROFICENCY");
@@ -186,9 +188,11 @@ public class Display extends HttpServlet {
 	            
 	            
 	            System.out.println(name + "\t" + proficency );
-	           
-	            session.setAttribute("skillNA_session", name);
-	            session.setAttribute("skillPR_session", proficency);
+	            
+	            skillText= skillText+name+"<br/>"+proficency+"<br/><br/>";
+	            
+	            session.setAttribute("skillCO_session", skillText);
+	            
 	            
 
 	        }
