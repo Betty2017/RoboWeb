@@ -7,7 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h1>Education</h1>
 <form action="Submit" method ="post">
+
+<input type = "text" name="personId" id="personId" value="${personID_session}" readonly> 
+<input type = "text" name="firstName" id="firstName" value="${personFN_session}" readonly> 
+<input type = "text" name="lastName" id="lastName" value="${personLN_session}" readonly> 
+<input type = "text" name="email" id="email" value="${personEM_session}" readonly> 
 <div class="form-group">
 <label>Enter Degree Name</label>
 <input type = "text" name="degree" id="degree"> 
@@ -20,8 +26,8 @@
 <label>Enter the Year </label>
 <input type = "text" name="year" id="year"> 
 </div>
-<input type="submit" name="first" value="Done">
-<input type="submit" name="second" value="Add Another">
+<input type="submit" name="third" value="Continue to the next page">
+<input type="submit" name="forth" value="Add Another Edu Achivment">
 </form>
 </body>
 </html>

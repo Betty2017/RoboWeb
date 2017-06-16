@@ -7,7 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="Submit" method ="post">
+<h1>Experiance</h1>
+<form action="Experiance" method ="post">
+<div class="form-group">
+<label>Person ID</label>
+<input type = "text" name="personId" id="personId" value="${personID_session}" readonly> 
+</div>
 <div class="form-group">
 <label>Enter Job Title</label>
 <input type = "text" name="title" id="title"> 
@@ -28,8 +33,8 @@
 <label>Enter Duty2 Description  </label>
 <input type = "text" name="duty2" id="duty2"> 
 </div>
-<input type="submit" name="first" value="Done">
-<input type="submit" name="second" value="Add Another">
+<input type="submit" name="first" value="Continue to the next page">
+<input type="submit" name="second" value="Add Another Work Experiance">
 </form>
 </body>
 </html>

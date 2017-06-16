@@ -41,6 +41,9 @@ public class Display extends HttpServlet {
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
+		
+				
+		
 		String sql = "select * from PERSON where PID='"+personId+"'";
 	
 			
@@ -50,6 +53,7 @@ public class Display extends HttpServlet {
                                 + "user=root&password=password");
 	        stmt = con.createStatement();
 	        rs = stmt.executeQuery(sql);
+	        
 	        while (rs.next()) {
 	        	
 	            String firstName = rs.getString("FNAME");
@@ -88,18 +92,26 @@ public class Display extends HttpServlet {
                                 + "user=root&password=password");
 	        stmt = con.createStatement();
 	        rs = stmt.executeQuery(sql1);
+	        
+	        
 	        while (rs.next()) {
+	        	
 	            String degree = rs.getString("DEGREE");
 	            String school = rs.getString("SCHOOL");
 	            String gYear = rs.getString("GYEAR");
+	           
 	            
 	            System.out.println(degree + "\t" + school + "\t" + gYear);
 	            
-	           
-	           
+	                    
 	            session.setAttribute("eduDE_session", degree);
 	            session.setAttribute("eduSC_session", school);
 	            session.setAttribute("eduGY_session", gYear);
+	            
+	           
+
+		 		   
+	            
 
 	        }
 	    } catch (SQLException e ) {
@@ -136,12 +148,14 @@ public class Display extends HttpServlet {
 	            
 	            System.out.println(title + "\t" + company + "\t" + dates+ "\t" + duty1+ "\t" + duty2);
 	           
+	           	            
 	            session.setAttribute("jobTI_session", title);
 	            session.setAttribute("jobCO_session", company);
 	            session.setAttribute("jobDA_session", dates);
 	            session.setAttribute("jobD1_session", duty1);
 	            session.setAttribute("jobD2_session", duty2);
 
+	            
 	        }
 	    } catch (SQLException e ) {
 	    	System.out.println(e);
@@ -199,9 +213,8 @@ public class Display extends HttpServlet {
 	    	    
 	    getServletContext().getRequestDispatcher(nextURL).forward(request,response);
 	}
-}
 		
-		
+}	
 
 				
 				
